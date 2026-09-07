@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلاروس باران - سامانه گزارش کار پرسنل</title>
+    <style>
+        :root {
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa820a;
+            --bg-white: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #fdfbf7 0%, #e8e8e8 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* فریم مربعی با افکت بلور و تم طلایی */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* نام برند بلور شده در بک‌گراند */
+        .bg-brand-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: rgba(212, 175, 55, 0.12);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            letter-spacing: 2px;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .btn-manager {
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-manager:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-employee {
+            background: var(--bg-white);
+            color: var(--gold-dark);
+            border: 2px solid var(--gold-primary);
+        }
+
+        .btn-employee:hover {
+            background: var(--gold-light);
+        }
+
+        /* فرم‌های ورود */
+        .login-form {
+            display: none;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--gold-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* بهینه‌سازی کامل برای موبایل و دسکتاپ */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .glass-card {
+                padding: 20px;
+            }
+            .bg-brand-watermark {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="glass-card">
+        <!-- نام برند طلایی بلور شده در پس‌زمینه کارت -->
+        <div class="bg-brand-watermark">talaroos_baran</div>
+
+        <div class="content-wrapper">
+            <!-- صفحه خوش‌آمدگویی اصلی -->
+            <div id="welcomeSection">
+                <div class="welcome-text">
+                    حضور شما در کنار ما مایه افتخار ماست.
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-manager" onclick="showManagerLogin()">ورود مدیریت</button>
+                    <button class="btn btn-employee" onclick="showEmployeeLogin()">ورود کارمندان</button>
+                </div>
+            </div>
+
+            <!-- فرم ورود مدیریت -->
+            <div id="managerLoginSection" class="login-form">
+                <h3 style="color: var(--gold-dark); text-align: center; margin-top: 0;">ورود مدیریت</h3>
+                <div class="form-group">
+                    <label>نام کاربری:</label>
+                    <input type="text" id="mgrUser" placeholder="نام کاربری مدیریت">
+                </div>
+                <div class="form-group">
+                    <label>رمز عبور:</label>
+                    <input type="password" id="mgrPass" placeholder="رمز عبور">
+                </div>
+                <button class="btn btn-manager" onclick="loginManager()">ورود به پنل مدیریت</button>
+                <br>
+                <a class="back-link" onclick="goBack()">← بازگشت</a>
+            </div>
+
+            <!-- فرم ورود کارمندان -->
+            <div id="employeeLoginSection" class="login-form">
+                <h3 style="color: var(--gold-dark); text-align: center; margin-top: 0;">ورود کارمندان</h3>
+                <div class="form-group">
+                    <label>نام کاربری:</label>
+                    <input type="text" id="empUser" placeholder="نام کاربری اختصاصی">
+                </div>
+                <div class="form-group">
+                    <label>رمز عبور:</label>
+                    <input type="password" id="empPass" placeholder="رمز عبور">
+                </div>
+                <button class="btn btn-manager" onclick="loginEmployee()">ورود به پنل کارمند</button>
+                <br>
+                <a class="back-link" onclick="goBack()">← بازگشت</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showManagerLogin() {
+        document.getElementById('welcomeSection').style.display = 'none';
+        document.getElementById('managerLoginSection').style.display = 'block';
+    }
+
+    function showEmployeeLogin() {
+        document.getElementById('welcomeSection').style.display = 'none';
+        document.getElementById('employeeLoginSection').style.display = 'block';
+    }
+
+    function goBack() {
+        document.getElementById('managerLoginSection').style.display = 'none';
+        document.getElementById('employeeLoginSection').style.display = 'none';
+        document.getElementById('welcomeSection').style.display = 'block';
+    }
+
+    function loginManager() {
+        const u = document.getElementById('mgrUser').value;
+        const p = document.getElementById('mgrPass').value;
+        if(u === 'modir.akram1363' && p === 'akram1363') {
+            alert('خوش آمدید مدیر محترم. (پنل مدیریت در حال بارگذاری...)');
+            // اینجا پنل مدیریت کامل باز خواهد شد
+        } else {
+            alert('نام کاربری یا رمز عبور مدیریت اشتباه است.');
+        }
+    }
+
+    function loginEmployee() {
+        alert('سیستم ورود کارمندان فعال است. (به زودی پنل اختصاصی بارگذاری می‌شود)');
+    }
+</script>
+
+</body>
+</html>
